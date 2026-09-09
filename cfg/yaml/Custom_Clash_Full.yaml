@@ -227,9 +227,33 @@ proxy-groups:
       - "🐢 低倍率节点"
     use:
       - provider1
-  - name: "🤖 AI服务"
+  - name: "🤖 国外AI服务"
     type: select
     proxies:
+      - "🚀 手动选择"
+      - "♻️ 自动选择"
+      - "🇸🇬 新加坡节点"
+      - "🇭🇰 香港节点"
+      - "🇺🇸 美国节点"
+      - "🇯🇵 日本节点"
+      - "🇼🇸 台湾节点"
+      - "🇰🇷 韩国节点"
+      - "🇨🇦 加拿大节点"
+      - "🇬🇧 英国节点"
+      - "🇫🇷 法国节点"
+      - "🇩🇪 德国节点"
+      - "🇳🇱 荷兰节点"
+      - "🇹🇷 土耳其节点"
+      - "🇷🇺 俄罗斯节点"
+      - "🌐 其他地区"
+      - "🏠 家宽节点"
+      - "🐢 低倍率节点"
+    use:
+      - provider1
+  - name: "🤖 国内AI服务"
+    type: select
+    proxies:
+      - "🎯 全球直连"
       - "🚀 手动选择"
       - "♻️ 自动选择"
       - "🇸🇬 新加坡节点"
@@ -464,6 +488,7 @@ proxy-groups:
     type: select
     proxies:
       - "🇼🇸 台湾节点"
+      - "🇭🇰 香港节点"
       - "🚀 手动选择"
       - "🎯 全球直连"
     use:
@@ -542,6 +567,7 @@ proxy-groups:
     proxies:
       - "🚀 手动选择"
       - "♻️ 自动选择"
+      - "🎯 全球直连"
       - "🇭🇰 香港节点"
       - "🇺🇸 美国节点"
       - "🇯🇵 日本节点"
@@ -982,7 +1008,7 @@ proxy-groups:
     interval: 300
     tolerance: 50
   - name: "🎯 全球直连"
-    type: url-test
+    type: select
     url: http://wifi.vivo.com.cn/generate_204
     proxies:
       - DIRECT
@@ -995,49 +1021,49 @@ rule-providers:
     behavior: classical
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Port_Direct.yaml"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Port_Direct.yaml"
     format: yaml
   Custom_Direct_Domain:
     behavior: domain
-    interval: 28800
+    interval: 1800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Domain.mrs"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Domain.mrs"
     format: mrs
   Custom_Direct_IP:
     behavior: ipcidr
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_IP.mrs"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_IP.mrs"
     format: mrs
   Custom_Direct_Port:
     behavior: classical
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Classical_Port.yaml"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Classical_Port.yaml"
     format: yaml
   Custom_Proxy_Domain:
     behavior: domain
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_Domain.mrs"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_Domain.mrs"
     format: mrs
   Custom_Proxy_IP:
     behavior: ipcidr
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_IP.mrs"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_IP.mrs"
     format: mrs
   Steam_CDN_Domain:
     behavior: domain
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_Domain.mrs"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_Domain.mrs"
     format: mrs
   Steam_CDN_IP:
     behavior: ipcidr
     interval: 28800
     type: http
-    url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_IP.mrs"
+    url: "https://cdn.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_IP.mrs"
     format: mrs
 
 # ==================== 分流规则 Rules ====================
@@ -1063,7 +1089,9 @@ rules:
   - "GEOSITE,openai,🤖 ChatGPT"
   - "GEOSITE,onedrive,💾 OneDrive"
   - "GEOSITE,bing,🤖 Copilot"
-  - "GEOSITE,category-ai-!cn,🤖 AI服务"
+  - "GEOSITE,category-ai-!cn,🤖 国外AI服务"
+  # 国内 AI 服务默认直连，可按需切换代理；须位于 cn 兜底规则之前。
+  - "GEOSITE,category-ai-cn,🤖 国内AI服务"
   - "GEOSITE,github,🚀 GitHub"
   - "GEOSITE,category-speedtest,🚀 测速工具"
   - "GEOSITE,steam,🎮 Steam"
